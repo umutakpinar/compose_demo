@@ -13,11 +13,12 @@ import androidx.compose.ui.focus.focusModifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import com.umutakpinar.compose_demo.navigation.Screen
 
 @Composable
 fun RecompositionScreen(
-    navController: NavController
+    navController: NavHostController
 ){
     Box(modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center,
@@ -25,12 +26,12 @@ fun RecompositionScreen(
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.clickable {
-                //navController.popBackStack()
-                navController.navigate(Screen.Home.route){
+                navController.popBackStack()
+                /*navController.navigate(Screen.Home.route){
                     popUpTo(Screen.Home.route){
                         inclusive = true
                     }
-                }
+                }*/
             }
         ) {
             Text(text = "2",
