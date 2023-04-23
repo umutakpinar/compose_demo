@@ -28,6 +28,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
+import androidx.navigation.Navigation
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.umutakpinar.compose_demo.navigation.Screen
@@ -68,8 +69,36 @@ fun MainScreen(
         scaffoldState = scaffoldState,
         topBar = {
             TopAppBar(
-                backgroundColor = MaterialTheme.colors.background
-            ) {
+                title = {
+                        Text(text = "lajskld")
+                },
+                backgroundColor = MaterialTheme.colors.background,
+                navigationIcon = {
+                    if (currentRoute != Screen.Home.route) {
+                        IconButton(
+                            onClick = {
+                                navController.popBackStack()
+                            }) {
+                            Icon(
+                                imageVector = Icons.Outlined.ArrowBack,
+                                contentDescription = "Go back button"
+                            )
+                        }
+                    }else{
+                        IconButton(onClick = {
+                            //Change here when you added viewModel
+                            //Change the dispatcher if its wrong I dont know which one is true one for process like opening drawer
+                            coroutineScope.launch {
+                                scaffoldState.drawerState.open()
+                            }
+                        }) {
+                            Icon(imageVector = Icons.Outlined.Menu, contentDescription = "Menu button")
+                        }
+                    }
+                }
+            )/*{
+                //It is not neccessary I can use pararmeter like actions navIcon etc...
+                /*
                 Row(
                     modifier = Modifier.fillMaxSize(),
                     horizontalArrangement = Arrangement.Center,
@@ -107,8 +136,8 @@ fun MainScreen(
                         )
                     }
                 }
-
-            }
+                */
+            }*/
         },
         drawerContent = {
             Box(modifier = Modifier.fillMaxSize())
