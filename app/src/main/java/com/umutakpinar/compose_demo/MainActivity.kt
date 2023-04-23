@@ -21,6 +21,7 @@ import androidx.compose.material.icons.outlined.ArrowBack
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.currentRecomposeScope
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -55,7 +56,7 @@ fun MainScreen(
     navController: NavHostController,
     scaffoldState: ScaffoldState,
 ) {
-    //Taking currentBackStackEntry as state so we can observe the changesgit
+    //Taking currentBackStackEntry as state so we can observe the changes
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
     Scaffold(
@@ -63,19 +64,18 @@ fun MainScreen(
             TopAppBar(
                 backgroundColor = MaterialTheme.colors.background
             ) {
-                Box(
+                Row(
                     modifier = Modifier.fillMaxSize(),
+                    horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Row(
-                        modifier = Modifier.fillMaxSize(),
-                        horizontalArrangement = Arrangement.Center,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        println("Route $currentRoute ")
-                        if (currentRoute == Screen.Home.route) {
-                            null
-                        }else{
-                            IconButton(onClick = {
+                    Box(
+                        modifier = Modifier.fillMaxSize()
+                    ){
+                        if (currentRoute != Screen.Home.route) {
+                            IconButton(
+                                modifier = Modifier.align(Alignment.CenterStart),
+                                onClick = {
                                 navController.popBackStack()
                             }) {
                                 Icon(
@@ -84,9 +84,13 @@ fun MainScreen(
                                 )
                             }
                         }
-                        Text(text = "aljkshdlhjasd")
+                        Text(
+                            modifier = Modifier.align(Alignment.Center),
+                            text = "Header"
+                        )
                     }
                 }
+
             }
         }
     ) {
